@@ -35,10 +35,31 @@
    <button onclick="checkAnswer('FRAK')">FRAK</button>
    <P id="result"></P>
    <div id="question2" style="display:none;">
-   <p>who was the elemental master of smoke in 2025</p>
+   <p>who was the elemental master of smoke in 2025 ?</p>
    <button onclick="checkAnswer2('CINDER')">CINDER</button>
    <button onclick="checkAnswer2('ASH')">ASH</button>
    <p id="result2"></p>
+   </div>
+    <div id="question3" style="display:none;">
+   <p>what is the name of dereth's dojo ?</p>
+   <button onclick="checkAnswer3('MOJO DOJO')">MOJO DOJO
+   </button>
+   <button onclick="checkAnswer3('BROWN DOJO')">BROWN DOJO</button>
+   <p id="result3"></p>
+   </div>
+   <div id="question4" style="display:none;">
+   <p>who is kai's and nya's mother ?</p>
+   <button onclick="checkAnswer4('MAYA')">MAYA
+   </button>
+   <button onclick="checkAnswer4('LILY')">LILY</button>
+   <p id="result4"></p>
+   </div>
+    <div id="question5" style="display:none;">
+   <p>who is the new character that is related to Lord Ras's tribe ?</p>
+   <button onclick="checkAnswer5('ZILVAR')">ZILVAR
+   </button>
+   <button onclick="checkAnswer5('YOUNG ZERAS')">YOUNG ZERAS</button>
+   <p id="result5"></p>
    </div>
    <script>
     function checkAnswer(choice) {
@@ -49,6 +70,25 @@
     }
     function checkAnswer2(choice) {
       document.getElementById('result2').textContent = choice === 'CINDER' ? 'CORRECT! 💨' : 'NOPE, TRY AGAIN!';
+      if (choice === 'CINDER') {
+        document.getElementById('question3').style.display = 'block';
+      }
+
+    }
+    function checkAnswer3(choice) {
+      document.getElementById('result3').textContent = choice === 'MOJO DOJO' ? 'CORRECT! 🟫' : 'NOPE, TRY AGAIN!';
+      if (choice === 'MOJO DOJO') {
+        document.getElementById('question4').style.display = 'block';
+      }
+    }
+    function checkAnswer4(choice) {
+      document.getElementById('result4').textContent = choice === 'MAYA' ? 'CORRECT! 💧' : 'NO, thats Cole\'s mother.';
+      if (choice === 'MAYA') {
+        document.getElementById('question5').style.display = 'block';
+      }
+    }
+    function checkAnswer5(choice) {
+      document.getElementById('result5').textContent = choice === 'ZILVAR' ? 'CORRECT! 🐯🩶' : 'WRONG! THATS LORD RAS\'S NAME.';
     }
    </script>
 </body>

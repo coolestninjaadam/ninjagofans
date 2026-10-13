@@ -26,10 +26,25 @@
             background: #facc15;
             color: firebrick;
         }
+        .quiz-container {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 40px;
+        }
+        .quiz-left {
+          flex: 1;
+        }
+        .quiz-right img {
+          width: 250px;
+          border-radius: 12px
+        }
     </style>
 </head>
 <body>
    <h1>NINJAGO SUPER QUIZZ</h1>
+   <div class="quiz-container">
+    <div class="quiz-left">
    <p>who is the green ninja?</p>
    <button onclick="checkAnswer('LLOYD')">LLOYD</button>
    <button onclick="checkAnswer('FRAK')">FRAK</button>
@@ -61,16 +76,27 @@
    <button onclick="checkAnswer5('YOUNG ZERAS')">YOUNG ZERAS</button>
    <p id="result5"></p>
    </div>
+   <div id="finalScore" style="display: none;">
+    <h2>Your Score: <span id="scoreText"></span>/5</h2>
+   </div>
+   </div>
+   <div class="quiz-right">
+    <img src="pic.jpeg" alt="LLOYD the legendary green ninja?">
+   </div>
+   </div>
    <script>
+    let score = 0;
     function checkAnswer(choice) {
       document.getElementById('result').textContent = choice === 'LLOYD' ? 'Correct! 🥷🏻' : 'Nope, try again!';
       if (choice === 'LLOYD') {
+        score = score + 1;
         document.getElementById('question2').style.display = 'block';
       }
     }
     function checkAnswer2(choice) {
       document.getElementById('result2').textContent = choice === 'CINDER' ? 'CORRECT! 💨' : 'NOPE, TRY AGAIN!';
       if (choice === 'CINDER') {
+        score = score + 1;
         document.getElementById('question3').style.display = 'block';
       }
 
@@ -78,17 +104,24 @@
     function checkAnswer3(choice) {
       document.getElementById('result3').textContent = choice === 'MOJO DOJO' ? 'CORRECT! 🟫' : 'NOPE, TRY AGAIN!';
       if (choice === 'MOJO DOJO') {
+        score = score + 1;
         document.getElementById('question4').style.display = 'block';
       }
     }
     function checkAnswer4(choice) {
       document.getElementById('result4').textContent = choice === 'MAYA' ? 'CORRECT! 💧' : 'NO, thats Cole\'s mother.';
       if (choice === 'MAYA') {
+        score = score + 1;
         document.getElementById('question5').style.display = 'block';
       }
     }
     function checkAnswer5(choice) {
       document.getElementById('result5').textContent = choice === 'ZILVAR' ? 'CORRECT! 🐯🩶' : 'WRONG! THATS LORD RAS\'S NAME.';
+      if (choice === 'ZILVAR') {
+        score = score + 1;
+      }
+      document.getElementById('finalScore').style.display = 'block';
+      document.getElementById('scoreText').textContent = score;
     }
    </script>
 </body>

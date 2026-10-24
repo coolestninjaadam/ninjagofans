@@ -10,8 +10,10 @@
             color: white;
             text-align: center;
             padding: 40px;
+            font-size: 28px;
         }
         h1 {
+            font-size: 3.5rem;
             color: #facc15;
             text-shadow: 2px 2px #dc2626;
         }
@@ -19,36 +21,57 @@
             background: #dc2626;
             color: aquamarine;
             border: rgb(127, 83, 0);
-            padding: 12px 20px;
-            border-radius: 8px;
+            font-size: 1em;
+            padding: 18px 30px;
+            border-radius: 12px;
         }
         button:hover {
             background: #facc15;
             color: firebrick;
         }
         .quiz-container {
-          display: flex;
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(0, 700px);
           justify-content: center;
-          align-items: flex-start;
-          gap: 40px;
         }
         .quiz-left {
-          flex: 1;
+          position: relative;
+          z-index: 1;
+        }
+        .quiz-right {
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 0;
+        }
+        .corner-left {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 40vw;
+          max-width: 800px;
+          z-index: 0;
+          pointer-events: none;
         }
         .quiz-right img {
-          width: 250px;
+          width: 40vw;
+          max-width: 800px;
           border-radius: 12px
         }
     </style>
 </head>
 <body>
+   <img class="corner-left" src="draconusjay.png" alt="Dragon Jay flying with ice wings">
    <h1>NINJAGO SUPER QUIZZ</h1>
    <div class="quiz-container">
     <div class="quiz-left">
+   <div id="question1">
    <p>who is the green ninja?</p>
    <button onclick="checkAnswer('LLOYD')">LLOYD</button>
    <button onclick="checkAnswer('FRAK')">FRAK</button>
    <P id="result"></P>
+   </div>
    <div id="question2" style="display:none;">
    <p>who was the elemental master of smoke in 2025 ?</p>
    <button onclick="checkAnswer2('CINDER')">CINDER</button>
@@ -81,15 +104,19 @@
    </div>
    </div>
    <div class="quiz-right">
-    <img src="pic.jpeg" alt="LLOYD the legendary green ninja?">
+    <img src="pic.png" alt="LLOYD the legendary green ninja?">
    </div>
    </div>
    <script>
     let score = 0;
+    function hideQuestion(btn) {
+      btn.closest('div[id^="question"]').style.display = 'none';
+    }
     function checkAnswer(choice) {
       document.getElementById('result').textContent = choice === 'LLOYD' ? 'Correct! 🥷🏻' : 'Nope, try again!';
       if (choice === 'LLOYD') {
         score = score + 1;
+        hideQuestion(event.target);
         document.getElementById('question2').style.display = 'block';
       }
     }
@@ -97,6 +124,7 @@
       document.getElementById('result2').textContent = choice === 'CINDER' ? 'CORRECT! 💨' : 'NOPE, TRY AGAIN!';
       if (choice === 'CINDER') {
         score = score + 1;
+        hideQuestion(event.target);
         document.getElementById('question3').style.display = 'block';
       }
 
@@ -105,6 +133,7 @@
       document.getElementById('result3').textContent = choice === 'MOJO DOJO' ? 'CORRECT! 🟫' : 'NOPE, TRY AGAIN!';
       if (choice === 'MOJO DOJO') {
         score = score + 1;
+        hideQuestion(event.target);
         document.getElementById('question4').style.display = 'block';
       }
     }
@@ -112,6 +141,7 @@
       document.getElementById('result4').textContent = choice === 'MAYA' ? 'CORRECT! 💧' : 'NO, thats Cole\'s mother.';
       if (choice === 'MAYA') {
         score = score + 1;
+        hideQuestion(event.target);
         document.getElementById('question5').style.display = 'block';
       }
     }
@@ -119,6 +149,7 @@
       document.getElementById('result5').textContent = choice === 'ZILVAR' ? 'CORRECT! 🐯🩶' : 'WRONG! THATS LORD RAS\'S NAME.';
       if (choice === 'ZILVAR') {
         score = score + 1;
+        hideQuestion(event.target);
       }
       document.getElementById('finalScore').style.display = 'block';
       document.getElementById('scoreText').textContent = score;

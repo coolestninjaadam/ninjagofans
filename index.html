@@ -29,6 +29,20 @@
             background: #facc15;
             color: firebrick;
         }
+        #timer {
+          display: inline-block;
+          font-size: 2.5rem;
+          font-weight: bold;
+          font-variant-numeric: tabular-nums;
+          color: #facc15;
+          background: rgba(0, 0, 0, 0.45);
+          border: 3px solid #facc15;
+          border-radius: 16px;
+          padding: 8px 28px;
+          margin: 0 0 30px;
+          position: relative;
+          z-index: 1;
+        }
         .quiz-container {
           position: relative;
           display: grid;
@@ -59,11 +73,42 @@
           max-width: 800px;
           border-radius: 12px
         }
+        @media (max-width: 768px) {
+          body {
+            padding: 16px;
+            font-size: 18px;
+          }
+          h1 {
+            font-size: 1.9rem;
+          }
+          #timer {
+            font-size: 1.6rem;
+            padding: 6px 20px;
+            margin-bottom: 20px;
+          }
+          button {
+            padding: 14px 20px;
+            margin: 6px 4px;
+          }
+          .quiz-right {
+            position: static;
+            margin-top: 20px;
+          }
+          .quiz-right img {
+            width: 80vw;
+            max-width: 400px;
+          }
+          .corner-left {
+            width: 45vw;
+            opacity: 0.35;
+          }
+        }
     </style>
 </head>
 <body>
    <img class="corner-left" src="draconusjay.png" alt="Dragon Jay flying with ice wings">
    <h1>NINJAGO SUPER QUIZZ</h1>
+   <p id="timer">Time: 10</p>
    <div class="quiz-container">
     <div class="quiz-left">
    <div id="question1">
@@ -109,51 +154,74 @@
    </div>
    <script>
     let score = 0;
-    function hideQuestion(btn) {
-      btn.closest('div[id^="question"]').style.display = 'none';
+    let current = 1;
+    const TIME_LIMIT = 10;
+    let timeLeft = TIME_LIMIT;
+    let timerId;
+    function showTime() {
+      document.getElementById('timer').textContent = 'Time: ' + timeLeft;
+    }
+    function startTimer() {
+      clearInterval(timerId);
+      timeLeft = TIME_LIMIT;
+      showTime();
+      timerId = setInterval(() => {
+        timeLeft--;
+        showTime();
+        if (timeLeft <= 0) goToNext();
+      }, 1000);
+    }
+    function finishQuiz() {
+      clearInterval(timerId);
+      document.getElementById('finalScore').style.display = 'block';
+      document.getElementById('scoreText').textContent = score;
+    }
+    function goToNext() {
+      document.getElementById('question' + current).style.display = 'none';
+      if (current === 5) {
+        finishQuiz();
+        return;
+      }
+      current++;
+      document.getElementById('question' + current).style.display = 'block';
+      startTimer();
     }
     function checkAnswer(choice) {
       document.getElementById('result').textContent = choice === 'LLOYD' ? 'Correct! 🥷🏻' : 'Nope, try again!';
       if (choice === 'LLOYD') {
         score = score + 1;
-        hideQuestion(event.target);
-        document.getElementById('question2').style.display = 'block';
+        goToNext();
       }
     }
     function checkAnswer2(choice) {
       document.getElementById('result2').textContent = choice === 'CINDER' ? 'CORRECT! 💨' : 'NOPE, TRY AGAIN!';
       if (choice === 'CINDER') {
         score = score + 1;
-        hideQuestion(event.target);
-        document.getElementById('question3').style.display = 'block';
+        goToNext();
       }
-
     }
     function checkAnswer3(choice) {
       document.getElementById('result3').textContent = choice === 'MOJO DOJO' ? 'CORRECT! 🟫' : 'NOPE, TRY AGAIN!';
       if (choice === 'MOJO DOJO') {
         score = score + 1;
-        hideQuestion(event.target);
-        document.getElementById('question4').style.display = 'block';
+        goToNext();
       }
     }
     function checkAnswer4(choice) {
       document.getElementById('result4').textContent = choice === 'MAYA' ? 'CORRECT! 💧' : 'NO, thats Cole\'s mother.';
       if (choice === 'MAYA') {
         score = score + 1;
-        hideQuestion(event.target);
-        document.getElementById('question5').style.display = 'block';
+        goToNext();
       }
     }
     function checkAnswer5(choice) {
       document.getElementById('result5').textContent = choice === 'ZILVAR' ? 'CORRECT! 🐯🩶' : 'WRONG! THATS LORD RAS\'S NAME.';
       if (choice === 'ZILVAR') {
         score = score + 1;
-        hideQuestion(event.target);
       }
-      document.getElementById('finalScore').style.display = 'block';
-      document.getElementById('scoreText').textContent = score;
+      goToNext();
     }
+    startTimer();
    </script>
 </body>
 </html>
